@@ -14,27 +14,10 @@ LabelModel.enabled:
     type: boolean
 LabelModel.types:
     extends: parameter
-    description: "An array of the label's types. Can be one of: case or macro"
+    description: "An array of the label's types. Can be one of: case, macro, article"
     type: array
-    items:
-        type: string
-        enum:
-            - case
-            - macro
+    items: { type: string }
 LabelModel.color:
     extends: parameter
-    description: The color representing the label
+    description: "The color representing the label - one of default, blue, white, yellow, red, orange, green, black, purple, brown, grey, pink"
     type: string
-    enum:
-        - default
-        - blue
-        - white
-        - yellow
-        - red
-        - orange
-        - green
-        - black
-        - purple
-        - brown
-        - grey
-        - pink

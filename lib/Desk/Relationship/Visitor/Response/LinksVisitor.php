@@ -47,6 +47,31 @@ class LinksVisitor extends AbstractVisitor
      */
     protected function createResourceFromData(CommandInterface $command, Parameter $structure, array $data)
     {
-        return $this->builder->createLinkCommand($command, $structure, $data);
+        // check if there's a link provided for the param's "wire" name
+        $links = $this->get($command, 'links');
+        if (!empty($links[$param->getWireName()])) {
+            // if links is a multidimensional array; iterate
+            if (isset($links[$param->getWireName()][0])) {
+                $value[self::ELEMENT][$param->getName()] = array();
+
+                foreach ($links[$param->getWireName()] as $field) {
+                    $linkCommand = $this->builder->createLinkCommand(
+                        $command,
+                        $param,
+                        $field
+                    );
+
+                    $value[self::ELEMENT][$param->getName()][] = $linkCommand;
+                }
+            } else {
+                $linkCommand = $this->builder->createLinkCommand(
+                    $command,
+                    $param,
+                    $links[$param->getWireName()]
+                );
+
+                $value[self::ELEMENT][$param->getName()] = $linkCommand;
+            }
+        }
     }
 }

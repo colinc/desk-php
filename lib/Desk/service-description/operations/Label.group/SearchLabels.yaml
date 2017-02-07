@@ -14,9 +14,5 @@ parameters:
     type:
         description: Array of types to search for.
         type: array
-        items:
-            type: string
-            enum:
-                - case
-                - macro
+        items: { type: string }
         location: query

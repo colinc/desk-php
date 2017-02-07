@@ -58,7 +58,6 @@ class SearchLabelsOperationTest extends ListOperationTestCase
             array(array('type' => new \stdClass())),
             array(array('type' => array(true))),
             array(array('type' => array(1, true))),
-            array(array('type' => 'article')),  # invalid type
         );
     }
 
@@ -76,10 +75,8 @@ class SearchLabelsOperationTest extends ListOperationTestCase
 
         $default = $labels[0];
         $this->assertSame('My great label', $default->get('name'));
-        $types = $default->get('types');
-        $this->assertSame(2, count($types));
-        $this->assertSame('case', $types[0]);
-        $this->assertSame('macro', $types[1]);
+        $this->assertSame('case', $default->get('types')[0]);
+        $this->assertSame('macro', $default->get('types')[1]);
         $this->assertSame('A label to use for great things.', $default->get('description'));
         $this->assertSame(true, $default->get('enabled'));
         $this->assertSame('default', $default->get('color'));
@@ -91,10 +88,8 @@ class SearchLabelsOperationTest extends ListOperationTestCase
 
         $pink = $labels[1];
         $this->assertSame('My great label', $pink->get('name'));
-        $types = $pink->get('types');
-        $this->assertSame(2, count($types));
-        $this->assertSame('case', $types[0]);
-        $this->assertSame('macro', $types[1]);
+        $this->assertSame('case', $pink->get('types')[0]);
+        $this->assertSame('macro', $pink->get('types')[1]);
         $this->assertSame('A label to use for great things.', $pink->get('description'));
         $this->assertSame(true, $pink->get('enabled'));
         $this->assertSame('pink', $pink->get('color'));

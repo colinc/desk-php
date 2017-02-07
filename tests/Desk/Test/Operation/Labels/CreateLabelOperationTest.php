@@ -29,7 +29,7 @@ class CreateLabelOperationTest extends CreateOperationTestCase
             'name' => 'My great label',
             'description' => 'A label to use for great things.',
             'enabled' => true,
-            'types' => array('case', 'macro'),
+            'types' => ['case', 'macro'],
             'color' => 'default'
         );
     }
@@ -56,13 +56,10 @@ class CreateLabelOperationTest extends CreateOperationTestCase
     {
         return array(
             array(array()),
-            array(array('name' => null, 'types' => array('case'))),
-            array(array('name' => true, 'types' => array('case'))),
-            array(array('name' => false, 'types' => array('case'))),
-            array(array('name' => new \stdClass(), 'types' => array('case'))),
-            array(array('color' => 'pink')),  # missing name
-            array(array('name' => 'foo', 'color' => 'mauve')),  # invalid color
-            array(array('name' => 'bar', 'types' => array('article'))),  # invalid type
+            array(array('name' => null, 'type' => array('case'))),
+            array(array('name' => true, 'type' => array('case'))),
+            array(array('name' => false, 'type' => array('case'))),
+            array(array('name' => new \stdClass(), 'type' => array('case')))
         );
     }
 
@@ -74,10 +71,9 @@ class CreateLabelOperationTest extends CreateOperationTestCase
         $this->assertSame('LabelModel', $label->getStructure()->getName());
 
         $this->assertSame('My great label', $label->get('name'));
-        $types = $label->get('types');
-        $this->assertSame(2, count($types));
-        $this->assertSame('case', $types[0]);
-        $this->assertSame('macro', $types[1]);
+        $this->assertSame(2, count($label->get('types')));
+        $this->assertSame('case', $label->get('types')[0]);
+        $this->assertSame('macro', $label->get('types')[1]);
         $this->assertSame('A label to use for great things.', $label->get('description'));
         $this->assertSame(true, $label->get('enabled'));
         $this->assertSame('default', $label->get('color'));
